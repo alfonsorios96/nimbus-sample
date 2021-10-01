@@ -3,10 +3,18 @@ import {html} from 'lit';
 import {NimbusUI} from './NimbusUI';
 
 class NimbusButton extends NimbusUI {
+    constructor(){
+        super();
+        this.key = 'button key';
+        this.eventName = 'one-event';
+        this.data = {
+            detail: {}
+        };
+    };
 
     onClicked() {
-       this.dispatch('one-event', 'NIMBUS_BUTTON_PAGE_1', 'hello');
-    }
+       this.dispatch(this.eventName, this.key, this.data);
+    };
 
     render() {
         return html`
@@ -14,7 +22,7 @@ class NimbusButton extends NimbusUI {
                 <slot></slot>
             </button>
         `;
-    }
-}
+    };
+};
 
 customElements.define('nimbus-button', NimbusButton);
