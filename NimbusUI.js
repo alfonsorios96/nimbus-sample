@@ -21,6 +21,14 @@ export class NimbusUI extends LitElement {
         };
     };
 
+    takeShadowElement(query){
+        return this.shadowRoot.querySelector(query);
+    };
+      
+    takeShadowElements(query){
+        return this.shadowRoot.querySelectorAll(query);
+    };
+
     subscribe(event_name, listener) {
         this.addEventListener(event_name, listener);
     };

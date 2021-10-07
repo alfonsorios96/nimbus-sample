@@ -21,15 +21,18 @@ class NimbusTestContainer extends NimbusUI {
 
     async firstUpdated(_changedProperties) {
         super.firstUpdated(_changedProperties);
-        const userRequester = this.shadowRoot.querySelector('nimbus-users');
-        const users = await userRequester.getUsers();
-        this.users = [...users];
+        const userRequester = this.takeShadowElement('nimbus-users');
+        this.users = await userRequester.getUsers();
     };
 
     render() {
         return html`
             <nimbus-users></nimbus-users>
-            <nimbus-button>Click me!</nimbus-button>
+            <nimbus-button>
+                <p>
+                    Click me!
+                </p> 
+            </nimbus-button>
 
             <ul>
                 ${this.users.map(user => html`
