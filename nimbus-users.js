@@ -2,7 +2,7 @@
 
 import {NimbusRequest} from './NimbusRequest';
 
-class NimbusUsers extends NimbusRequest {
+export class NimbusUsers extends NimbusRequest {
     success() {
         console.log('Éxito');
     }
@@ -20,6 +20,8 @@ class NimbusUsers extends NimbusRequest {
                     // this.success.bind(this)
                 }]
             });
+            this.dispatch('users-results', 'users', users.results);
+            // TODO Two way samples for requesting data
             return users.results;
         } catch (e) {
             // Catch error

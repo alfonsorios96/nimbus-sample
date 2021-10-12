@@ -1,26 +1,26 @@
 import {html} from 'lit';
 import {NimbusUI} from './NimbusUI';
-import { cssObject, getStyle, styleTagHTML } from './nimbus-button-styles';
+import {cssObject, getStyle, styleTagHTML} from './nimbus-button-styles';
 
 class NimbusButton extends NimbusUI {
 
-    constructor(){
+    constructor() {
         super();
-        this.key = 'button key';
-        this.eventName = 'one-event';
+        this.key = '';
+        this.eventName = '';
         this.data = {
             detail: {}
         };
+        this.callback = () => {};
     };
 
     /**
-      * Declared properties and their corresponding attributes
-      */
+     * Declared properties and their corresponding attributes
+     */
     static get properties() {
         return {
-            key : { type : String},
-            eventName : { type : String },
-            data : { type : Object }
+            key: {type: String},
+            eventName: {type: String, attribute: 'event-name'}
         };
     };
 
@@ -29,23 +29,24 @@ class NimbusButton extends NimbusUI {
     };
 
     onClicked() {
-       this.dispatch(this.eventName, this.key, this.data);
+        const data = this.callback();
+        this.dispatch(this.eventName, this.key, data);
     };
 
     render() {
         return html`
             ${styleTagHTML}
             <button
-            id="nimbus-primitive-button"
-            style="${getStyle('#nimbus-primitive-button')}"
-            @click="${this.onClicked}">
-            <p>
-                inner text
-            </p>
+                    id="nimbus-primitive-button"
+                    style="${getStyle('#nimbus-primitive-button')}"
+                    @click="${this.onClicked}">
+                <p>
+                    inner text
+                </p>
                 <slot></slot>
             </button>
         `;
     };
-};
+}
 
 customElements.define('nimbus-button', NimbusButton);

@@ -3,10 +3,10 @@ import {html} from 'lit';
 import {NimbusUI} from './NimbusUI';
 import './nimbus-button';
 import './nimbus-users';
-import subscriptions from './nimbus-test-container-subscriptions';
+import {NimbusUsers} from './nimbus-users';
 
 class NimbusTestContainer extends NimbusUI {
-    
+
     static get properties() {
         return {
             users: {type: Array}
@@ -15,23 +15,41 @@ class NimbusTestContainer extends NimbusUI {
 
     constructor() {
         super();
-        this.setSubscriptionsArray(subscriptions);
+        this.subscribe([
+            {
+                event_name: 'one-event',
+                listener: (event) => {
+                    // TODO Action for one-event
+                }
+            },
+            {
+                event_name: 'users-results',
+                listener: (event) => {
+                    this.users = event?.detail?.data;
+                }
+            }
+        ]);
         this.users = [];
+        this.usersController = new NimbusUsers();
     };
 
     async firstUpdated(_changedProperties) {
         super.firstUpdated(_changedProperties);
-        const userRequester = this.takeShadowElement('nimbus-users');
-        this.users = await userRequester.getUsers();
+        this.users = await this.usersController.getUsers();
     };
+
+    onNimbusClicked() {
+        console.log('Hello from Nimbus clicked');
+        return {};
+    }
 
     render() {
         return html`
             <nimbus-users></nimbus-users>
-            <nimbus-button>
+            <nimbus-button event-name="one-event" .callback="${this.onNimbusClicked.bind(this)}">
                 <p>
                     Click me!
-                </p> 
+                </p>
             </nimbus-button>
 
             <ul>
@@ -41,6 +59,6 @@ class NimbusTestContainer extends NimbusUI {
             </ul>
         `;
     };
-};
+}
 
 customElements.define('nimbus-test-container', NimbusTestContainer);

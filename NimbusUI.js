@@ -1,49 +1,17 @@
-import { LitElement } from 'lit';
+import { NimbusCore } from './nimbus-core';
 
-export class NimbusUI extends LitElement {
+export class NimbusUI extends NimbusCore {
 
-    constructor() {
-        super();
-        /**
-         * this property is an array of objects. Prototype:
-         * {
-         *   eventName: '',
-         *   eventHandler: () => {}
-         * }
-         */
-        this._subscriptions = [];
+    getElement(query, deep = false){
+        const shadowDOMResult = this.shadowRoot.querySelector(query);
+        if(shadowDOMResult !== null) {
+            return shadowDOMResult;
+        } else {
+            // TODO implements deeping search
+        }
     };
 
-    firstUpdated(_changedProperties) {
-        super.firstUpdated(_changedProperties);
-        for (const eventData of this._subscriptions) {
-            this.subscribe(eventData.eventName, eventData.eventHandler);
-        };
-    };
-
-    takeShadowElement(query){
-        return this.shadowRoot.querySelector(query);
-    };
-      
-    takeShadowElements(query){
+    getElements(query, deep = false){
         return this.shadowRoot.querySelectorAll(query);
     };
-
-    subscribe(event_name, listener) {
-        this.addEventListener(event_name, listener);
-    };
-
-    setSubscriptionsArray(subscriptionsArray){
-        this._subscriptions = subscriptionsArray;
-    };
-
-    dispatch(event_name, key, data) {
-        this.dispatchEvent(new CustomEvent(event_name, {
-            bubbles: false,
-            composed: true,
-            detail: {
-                key, data
-            }
-        }));
-    };
-};
+}
