@@ -1,22 +1,17 @@
-import {LitElement} from 'lit';
+import { NimbusCore } from './nimbus-core';
 
-export class NimbusUI extends LitElement {
+export class NimbusUI extends NimbusCore {
 
-    subscribe(event_names) {
-        for (const name of event_names) {
-            this.addEventListener(name, (event) => {
-                console.log(event);
-            });
+    getElement(query, deep = false){
+        const shadowDOMResult = this.shadowRoot.querySelector(query);
+        if(shadowDOMResult !== null) {
+            return shadowDOMResult;
+        } else {
+            // TODO implements deeping search
         }
-    }
+    };
 
-    dispatch(event_name, key, data) {
-        this.dispatchEvent(new CustomEvent(event_name, {
-            bubbles: false,
-            composed: true,
-            detail: {
-                key, data
-            }
-        }));
-    }
+    getElements(query, deep = false){
+        return this.shadowRoot.querySelectorAll(query);
+    };
 }

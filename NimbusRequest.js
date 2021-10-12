@@ -1,6 +1,6 @@
-import {LitElement} from 'lit';
+import {NimbusCore} from './nimbus-core';
 
-export class NimbusRequest extends LitElement {
+export class NimbusRequest extends NimbusCore {
 
     constructor() {
         super();
@@ -34,8 +34,7 @@ export class NimbusRequest extends LitElement {
                 }
             }
         }
-        const payload = await response.json();
-        return payload;
+        return await response.json();
     }
 
     XMLHttpRequest() {
