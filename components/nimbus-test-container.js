@@ -1,6 +1,6 @@
 import {html} from 'lit';
 
-import {NimbusUI} from './NimbusUI';
+import {NimbusUI} from '../libs/NimbusUI';
 import './nimbus-button';
 import './nimbus-users';
 import {NimbusUsers} from './nimbus-users';

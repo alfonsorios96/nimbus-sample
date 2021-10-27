@@ -1,5 +1,5 @@
 import {html} from 'lit';
-import {NimbusUI} from './NimbusUI';
+import {NimbusUI} from '../libs/NimbusUI';
 import {cssObject, getStyle, styleTagHTML} from './nimbus-button-styles';
 
 class NimbusButton extends NimbusUI {
