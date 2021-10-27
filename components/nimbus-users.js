@@ -1,6 +1,6 @@
 // https://randomuser.me/api/?results=5000
 
-import {NimbusRequest} from './NimbusRequest';
+import {NimbusRequest} from '../libs/NimbusRequest';
 
 export class NimbusUsers extends NimbusRequest {
     success() {
@@ -11,7 +11,7 @@ export class NimbusUsers extends NimbusRequest {
         try {
             const users = await this.fetch({
                 host: 'https://randomuser.me',
-                endpoint: 'api/?results=5000',
+                endpoint: 'api/?results=10',
                 callbacks: [{
                     status: 200,
                     action: () => {
